@@ -1,0 +1,637 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Binar Car Documentation API",
+        "description":"This is a sample REST API with design pattern MVC with authorization and authentication. The API have a two model to used, it is users and cars model.",
+        "version": "1.0.11"
+    },
+    "externalDocs": {
+        "description": "Find out more about Swagger",
+        "url": "http://swagger.io"
+    },
+    "servers": [
+        {
+        "url": "http://localhost:5000/"
+        }
+    ],
+    "tags": [
+        {
+            "name": "cars",
+            "description": "handle all CRUD cars data API with authentication and authorization"
+        },
+        {
+            "name": "users",
+            "description": "handle account service to have authenticated and can authorization for access resource"
+        }
+    ],
+    "paths": {
+        "/cars": {
+            "get": {
+                "tags": [
+                    "cars"
+                ],
+                "summary": "view car list data",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "view car list data"
+                    }
+                }
+                },
+            "post": {
+                "tags": [
+                    "cars"
+                ],
+                "summary": "create a new car ",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                        "content": {
+                            "multipart/form-data": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "car-image": {
+                                            "type": "string",
+                                            "format": "binary",
+                                            "description": "car image type file"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "rentPerDay": {
+                                                    "type": "number"
+                                                },
+                                                "size": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "201": {
+                            "description": "cars data has been created"
+                        },
+                        "400": {
+                            "description": "invalid data structure from client"
+                        },
+                        "401": {
+                            "description": "unauthorized from user"
+                        },
+                        "403": {
+                            "description": "forbidden from this resource"
+                        },
+                        "404": {
+                            "description": "some error message"
+                        }
+                        
+                    }
+                }
+        },
+        "/cars/{id}": {
+                "get": {
+                    "tags": [
+                        "cars"
+                    ],
+                    "summary": "view cars data by id",
+                    "security": [
+                        {
+                            "BearerAuth": []
+                        }
+                    ],
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "in": "path",
+                            "required": true,
+                            "schema": {
+                            "type": "string"
+                            }
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "cars data by id is successfull"
+                        },
+                        "400": {
+                            "description": "invalid data structure from client"
+                        },
+                        "401": {
+                            "description": "unauthorized from user"
+                        },
+                        "403": {
+                            "description": "forbidden from this resource"
+                        },
+                        "404": {
+                            "description": "some error message or data not found"
+                        }
+                        
+                    }
+                },
+                "put": {
+                    "tags": [
+                        "cars"
+                    ],
+                    "summary": "update car data",
+                    "security": [
+                        {
+                            "BearerAuth": []
+                        }
+                    ],
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "in": "path",
+                            "required": true,
+                            "schema": {
+                            "type": "string"
+                            }
+                        }
+                    ],
+                    "requestBody": {
+                        "content": {
+                            "multipart/form-data": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "car-image": {
+                                            "type": "string",
+                                            "format": "binary",
+                                            "description": "Gambar mobil (jenis file)"
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "rentPerDay": {
+                                                    "type": "number"
+                                                },
+                                                "size": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "responses": {
+                        "201": {
+                            "description": "cars data has been updated"
+                        },
+                        "400": {
+                            "description": "invalid data structure from client"
+                        },
+                        "401": {
+                            "description": "unauthorized from user"
+                        },
+                        "403": {
+                            "description": "forbidden from this resource"
+                        },
+                        "404": {
+                            "description": "data not found"
+                        }
+                    }
+                },
+                "delete": {
+                    "tags": [
+                        "cars"
+                    ],
+                    "summary": "delete cars data by id",
+                    "security": [
+                        {
+                            "BearerAuth": []
+                        }
+                    ],
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "in": "path",
+                            "required": true,
+                            "schema": {
+                            "type": "string"
+                            }
+                        }
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "cars data has been deleted"
+                        },
+                        "400": {
+                            "description": "invalid data structure from client"
+                        },
+                        "401": {
+                            "description": "unauthorized from user"
+                        },
+                        "403": {
+                            "description": "forbidden from this resource"
+                        },
+                        "404": {
+                            "description": "some error message"
+                        }
+                    }
+                }
+        
+        },
+        "/users":{
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "view users data list",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "view all users and access from superadmin"
+                    },
+                    "401": {
+                        "description": "unauthorized from user"
+                    },
+                    "403": {
+                        "description": "forbidden from this resource"
+                    },
+                    "404": {
+                        "description": "some error message"
+                    }
+                }
+            }
+        },
+        "/users/current-user":{
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "view user data by auth with jwt token",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description" : "view user data authentication"
+                    },
+                    "401": {
+                        "description": "unauthorized from user"
+                    },
+                    "403": {
+                        "description": "forbidden from this resource"
+                    },
+                    "404": {
+                        "description": "some error message"
+                    }
+                }
+            }
+        },
+        "/users/auth":{
+            "post": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "login user account and get jwt token from authentication",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": ["email","password"]
+                            }
+                        }
+                        }
+                    },
+                    "responses": {
+                        "200": {
+                            "description": "Authentication is successfull"
+                        },
+                        "400": {
+                            "description": "invalid data structure input"
+                        },
+                        "403": {
+                            "description": "forbidden from this resource"
+                        },
+                        "404": {
+                            "description": "some error message"
+                        }
+                    }
+                }
+        },
+        "/users/register":{
+            "post": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "registration for users member",
+                "requestBody": {
+                        "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "phone": {
+                                                "type": "string"
+                                            },
+                                            "address": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "password": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": ["name","email","password"]
+                                    }
+                                }
+                            }
+                    },
+                    "responses": {
+                        "201": {
+                            "description": "registration is successfull"
+                        },
+                        "400": {
+                            "description": "invalid data structure input"
+                        },
+                        "404": {
+                            "description": "some error message"
+                        }
+                    }
+                }
+        },
+        "/users/register-admin":{
+            "post": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "registration for users admin with auth by superadmin",
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                        "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "type": "object",
+                                        "properties": {
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "phone": {
+                                                "type": "string"
+                                            },
+                                            "address": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "password": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": ["name","email","password"]
+                                    }
+                                }
+                            }
+                    },
+                    "responses": {
+                        "201": {
+                            "description": "registration is successfull"
+                        },
+                        "400": {
+                            "description": "invalid data structure input"
+                        },
+                        "401": {
+                            "description": "unauthorized from user superadmin"
+                        },
+                        "403": {
+                            "description": "forbidden from this resource"
+                        },
+                        "404": {
+                            "description": "some error message"
+                        }
+                    }
+                }
+        },
+        "/users/auth/google":{
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "initialization google process auth",
+                "operationId": "initiateGoogleAuth",
+                "responses": {
+                    "200": {
+                        "description": "google auth process is successfull"
+                    },
+                    "404": {
+                        "description": "some error message"
+                    }
+                }
+            }
+        },
+        "/users/auth/google/callback": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Callback from google authentication",
+                "operationId": "googleAuthCallback",
+                "responses": {
+                        "200": {
+                        "description": "google callback is successfull"
+                    },
+                    "404": {
+                        "description": "some error message"
+                    }
+                }
+            }
+        },
+        "/users/auth/facebook":{
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "initialization facebook process auth",
+                "operationId": "initiateFacebookAuth",
+                "responses": {
+                    "200": {
+                        "description": "facebook auth process is successfull"
+                    },
+                    "404": {
+                        "description": "some error message"
+                    }
+                }
+            }
+        },
+        "/users/auth/facebook/callback": {
+            "get": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "Callback from google authentication",
+                "operationId": "googleAuthCallback",
+                "responses": {
+                    "200": {
+                        "description": "google callback is successfull"
+                    },
+                    "404": {
+                        "description": "some error message"
+                    }
+                }
+            }
+        },
+        "/users/logout":{
+            "post": {
+                "tags": [
+                    "users"
+                ],
+                "summary": "logout user account ",
+                "responses": {
+                    "201": {
+                        "description": "logout is sucessfull"
+                    },
+                    "404": {
+                        "description": "some error message"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        },
+        "schemas": {
+            "cars": {
+                "type": "object",
+                "properties": {
+                        "id": {
+                            "type": "uuid",
+                            "example": "550e8400-e29b-41d4-a716-446655440000"
+                        },
+                        "name": {
+                            "type": "string",
+                            "example": "Mobil Avanza"
+                        },
+                        "image": {
+                            "type": "string",
+                            "example": "https://firebasestorage.googleapis.com/v0/b/binar-car-402108.appspot.com/o/car-seed-1697616543758.jpg?alt=media&token=fbd8f719-7387-4415-b852-9da385cb99ad"
+                        },
+                        "rentPerDay": {
+                            "type": "integer",
+                            "example": 100000
+                        },
+                        "size": {
+                            "type": "string",
+                            "example": "Large"
+                        },
+                        "createdAt": {
+                            "type": "date-time",
+                            "example": "2023-10-20 20:30:13.053+07"
+                        },
+                        "updatedAt": {
+                            "type": "date-time",
+                            "example": "2023-10-20 20:30:13.053+07"
+                        },
+                        "deletedAt": {
+                            "type": "date-time",
+                            "example": "2023-10-20 20:30:13.053+07"
+                        },
+                        "createdBy": {
+                            "type": "uuid",
+                            "example": "550e8400-e29b-41d4-a716-446655440000"
+                        },
+                        "updatedBy": {
+                            "type": "uuid",
+                            "example": "550e8400-e29b-41d4-a716-446655440000"
+                        },
+                        "deletedBy": {
+                            "type": "uuid",
+                            "example": "550e8400-e29b-41d4-a716-446655440000"
+                        }
+                    }
+                },
+                "users": {
+                    "type": "object",
+                    "properties": {
+                            "id": {
+                                "type": "uuid",
+                                "example": "550e8400-e29b-41d4-a716-446655440000"
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": "Uzumaki Naruto"
+                            },
+                            "phone": {
+                                "type": "string",
+                                "example": "091334567890"
+                            },
+                            "address": {
+                                "type": "string",
+                                "example": "JAPAN"
+                            },
+                            "email": {
+                                "type": "string",
+                                "example": "naruto@gmail.com"
+                            },
+                            "password": {
+                                "type": "string",
+                                "example": "$2b$10$e8dC5u/mxy5HExlcv5.RpOFUlbDwWy0GFgdvYKzzDH5PYzmu9xG2u"
+                            },
+                            "role": {
+                                "type": "string",
+                                "enum" : ["admin", "superadmin" , "member"],
+                                "example": "admin"
+                            },
+                            "createdAt": {
+                                "type": "date-time",
+                                "example": "2023-10-20 20:30:13.053+07"
+                            },
+                            "updatedAt": {
+                                "type": "date-time",
+                                "example": "2023-10-20 20:30:13.053+07"
+                            }
+                        }
+                    }
+            }
+    }    
+}
